@@ -12,29 +12,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPage {
 
-    /**
-     * Кнопка принятия куки
-     **/
+    /** Кнопка принятия куки **/
     private final SelenideElement cockieButton = $(By.id("accept-choices"));
 
-    /**
-     * Заголовок поля ввода 'SQL Statement'
-     **/
+    /** Заголовок поля ввода 'SQL Statement' **/
     private final SelenideElement sqlStatementText = $(By.xpath(".//h3[contains(text(),'SQL Statement')]"));
 
-    /**
-     * Кнопка запуска скрипта
-     **/
+    /** Кнопка запуска скрипта **/
     private final SelenideElement runSqlButton = $(By.xpath(".//button[@class='ws-btn' and contains(text(),'Run SQL')]"));
 
-    /**
-     * Таблица результатов
-     **/
+    /** Таблица результатов **/
     private final SelenideElement resultTable = $(By.xpath(".//table[contains(@class,'ws-table-all')]"));
 
-    /**
-     * Количество результатов
-     **/
+    /** Количество результатов **/
     private final SelenideElement nubmerOfRecordsText = $(By.xpath(".//div[contains(text(), 'Number of Records')]"));
 
     /** Таблица результатов **/
@@ -78,8 +68,8 @@ public class MainPage {
         return this;
     }
 
-    // Далее в тестах использовалась конструкиця для работы с элементами в iframe.
-    // Элементы в iframe находятся только в последних версиях Google Chrome.
+    // Далее в тестах использовалась конструкция для работы с элементами в iframe.
+    // Элементы внутри iframe находятся только в последних версиях Google Chrome.
     // Последние версии Хрома не поддерживают WebSQL из-за чего часть тестов невозможно было пройти.
     // Пришлось откатиться на старую версию 116 для прохождения тестов.
     // В старых версиях элементы уже находятся вне iframe.
