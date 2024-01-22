@@ -2,30 +2,37 @@ import PageObjects.MainPage;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.Selenide.*;
 
 
 public class MayflowerTest {
 
+    @BeforeAll
+    public static void setUp() {
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
+        Configuration.browser = "chrome";
+    }
+
     @BeforeEach
     public void openSite()
     {
         // При открытии страница в вечном лоадере, из-за этого не стартовали проверки теста.
         // Пришлось добавить данную настройку для старта как только загрузиться ДОМ дерево
-        Configuration.pageLoadStrategy = "eager";
+        // Configuration.pageLoadStrategy = "eager";
         open("https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all");
     }
 
+    // Во всех тестах закомменчен метод "clickCookieButton()"
+    // Окно принятия кук отсутствует в зависимости от версии браузера.
+    // Пришлось закомментить для запуска через селениум хаб.
     @Test
     @DisplayName("Вывод всех строк таблицы и проверка наличия заданного имени и адреса")
     public void checkNameAnaAddressInTable() {
         MainPage mainPage = new MainPage()
-                .clickCookieButton()
+        //      .clickCookieButton()
                 .getSqlStatementText()
                 .clickRunSqlButton()
                 .getInfoFromResultTable("Giovanni Rovelli","Via Ludovico il Moro 22");
@@ -35,7 +42,7 @@ public class MayflowerTest {
     @DisplayName("Вывод строк таблицы где город Лондон. Проверка что таких записей 6")
     public void requestDataWithLondon() {
         MainPage mainPage = new MainPage()
-                .clickCookieButton()
+        //      .clickCookieButton()
                 .getSqlStatementText()
                 .fillInputFieldWithJS("SELECT * FROM Customers WHERE city = 'London';")
                 .clickRunSqlButton()
@@ -46,7 +53,7 @@ public class MayflowerTest {
     @DisplayName("Добавление новой записи в таблицу. Проверка что запись добавлена")
     public void addNewEntryInTable() {
         MainPage mainPage = new MainPage()
-                .clickCookieButton()
+        //      .clickCookieButton()
                 .getSqlStatementText()
                 .fillInputFieldWithJS("INSERT INTO Customers (CustomerID,CustomerName,ContactName,Address,City,PostalCode,Country) " +
                         "VALUES ('123','TestCustomerName','TestContactName','TestAddress','TestCity','TestPostalCode','TestCountry')")
@@ -64,7 +71,7 @@ public class MayflowerTest {
     @DisplayName("Изменение записи таблицы. Проверка что данные успешно обновлены")
     public void updateEntryInTable() {
         MainPage mainPage = new MainPage()
-                .clickCookieButton()
+        //      .clickCookieButton()
                 .getSqlStatementText()
                 .fillInputFieldWithJS("UPDATE Customers SET " +
                         "CustomerName = 'NewCustomerName', " +
@@ -88,7 +95,7 @@ public class MayflowerTest {
     @DisplayName("Удаление записей где City = 'London'. Проверка что записи успешно удалены")
     public void deleteDataWithLondon() {
         MainPage mainPage = new MainPage()
-                .clickCookieButton()
+        //      .clickCookieButton()
                 .getSqlStatementText()
                 .fillInputFieldWithJS("DELETE FROM Customers WHERE City = 'London';")
                 .clickRunSqlButton();
